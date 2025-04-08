@@ -29,9 +29,36 @@ export default function AgriFinanceDashboard() {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
 
-    const cropTypes = ['potato', 'maize', 'wheat', 'coffee', 'teff', 'barley', 'sorghum'];
-
-    const regions = ['afar', 'amhara', 'oromia', 'tigray', 'somali', 'snnpr'];
+    const cropTypes = [
+        'coffee',
+        'maize',
+        'grass',
+        'sorghum',
+        'fallow',
+        'teff',
+        'barley',
+        'enset',
+        'faba bean',
+        'wheat',
+        'haricot bean',
+        'vegetable',
+        'fruit',
+        'potato',
+        'pea',
+        'hhat'
+    ];
+    const regions = [
+        'afar',
+        'amhara',
+        'benushangul Gumuz',
+        'dire dawa',
+        'gambela',
+        'harari',
+        'oromiya',
+        'S.N.N.P.R',
+        'somalia',
+        'tigray'
+    ];
 
     const handleChange = (field: any, value: any) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
@@ -223,7 +250,7 @@ export default function AgriFinanceDashboard() {
                                         <path
                                             d='M 10 70 A 40 40 0 1 1 90 70'
                                             fill='none'
-                                            stroke={score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444'}
+                                            stroke={score >= 50 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444'}
                                             strokeWidth='10'
                                             strokeLinecap='round'
                                             strokeDasharray={`${score * 1.8} 180`}
@@ -255,7 +282,7 @@ export default function AgriFinanceDashboard() {
                                 {/* Score interpretation */}
                                 <div className='mt-4 space-y-2 text-center'>
                                     <h3 className='font-medium'>
-                                        {score >= 70
+                                        {score >= 50
                                             ? 'Excellent Potential'
                                             : score >= 40
                                               ? 'Moderate Potential'
@@ -264,7 +291,7 @@ export default function AgriFinanceDashboard() {
                                                 : 'No Data'}
                                     </h3>
                                     <p className='text-sm text-gray-500'>
-                                        {score >= 70
+                                        {score >= 50
                                             ? 'High yield and investment return expected'
                                             : score >= 40
                                               ? 'Reasonable yield with moderate investment'
@@ -290,8 +317,8 @@ export default function AgriFinanceDashboard() {
 
                     {error && (
                         <Alert className='border-red-200 bg-red-50'>
-                            <AlertCircle className='h-4 w-4 text-red-600' />
-                            <AlertTitle>Error</AlertTitle>
+                            <AlertCircle className='h-4 w-4 text-red-600 dark:text-black' />
+                            <AlertTitle className='dark:text-black'>Error</AlertTitle>
                             <AlertDescription>{error}</AlertDescription>
                         </Alert>
                     )}
