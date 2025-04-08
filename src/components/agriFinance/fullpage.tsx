@@ -8,9 +8,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
 
-import { AlertCircle, Check, Loader2 } from 'lucide-react';
+import { AlertCircle, Check, Loader2, Ruler } from 'lucide-react';
 
 export default function AgriFinanceDashboard() {
     const [formData, setFormData] = useState({
@@ -84,22 +83,47 @@ export default function AgriFinanceDashboard() {
                             </CardHeader>
                             <CardContent className='space-y-6'>
                                 {/* Region Select */}
-                                <div className='space-y-2'>
-                                    <Label htmlFor='region'>Region</Label>
-                                    <Select
-                                        value={formData.region}
-                                        onValueChange={(value) => handleChange('region', value)}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder='Select region' />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {regions.map((region) => (
-                                                <SelectItem key={region} value={region}>
-                                                    {region.charAt(0).toUpperCase() + region.slice(1)}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                <div className='flex flex-row justify-evenly'>
+                                    <div className='mr-2 flex-1'>
+                                        <Label htmlFor='region' className='mb-2'>
+                                            Region
+                                        </Label>
+                                        <Select
+                                            value={formData.region}
+                                            onValueChange={(value) => handleChange('region', value)}>
+                                            <SelectTrigger className='mr-5 w-full'>
+                                                <SelectValue placeholder='Select region' />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {regions.map((region) => (
+                                                    <SelectItem key={region} value={region}>
+                                                        {region.charAt(0).toUpperCase() + region.slice(1)}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    {/* Crop Type */}
+
+                                    <div className='flex-1'>
+                                        <Label htmlFor='crop_type' className='mb-2'>
+                                            Crop Type
+                                        </Label>
+                                        <Select
+                                            value={formData.crop_type}
+                                            onValueChange={(value) => handleChange('crop_type', value)}>
+                                            <SelectTrigger className='w-full'>
+                                                <SelectValue placeholder='Select crop type' />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {cropTypes.map((crop) => (
+                                                    <SelectItem key={crop} value={crop}>
+                                                        {crop.charAt(0).toUpperCase() + crop.slice(1)}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                 </div>
 
                                 {/* Geographic Coordinates */}
@@ -126,47 +150,19 @@ export default function AgriFinanceDashboard() {
                                     </div>
                                 </div>
 
-                                {/* Land Area */}
                                 <div className='space-y-2'>
-                                    <Label htmlFor='land_area'>Land Area (hectares)</Label>
-                                    <div className='flex items-center space-x-4'>
-                                        <Slider
-                                            id='land_area'
-                                            min={0.1}
-                                            max={10}
-                                            step={0.1}
-                                            value={[formData.land_area]}
-                                            onValueChange={(values) => handleChange('land_area', values[0])}
-                                            className='flex-1'
-                                        />
-                                        <Input
-                                            type='number'
-                                            step='0.1'
-                                            min='0.1'
-                                            className='w-20'
-                                            value={formData.land_area}
-                                            onChange={(e) => handleChange('land_area', e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Crop Type */}
-                                <div className='space-y-2'>
-                                    <Label htmlFor='crop_type'>Crop Type</Label>
-                                    <Select
-                                        value={formData.crop_type}
-                                        onValueChange={(value) => handleChange('crop_type', value)}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder='Select crop type' />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {cropTypes.map((crop) => (
-                                                <SelectItem key={crop} value={crop}>
-                                                    {crop.charAt(0).toUpperCase() + crop.slice(1)}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <Label htmlFor='land_area' className='flex items-center gap-2 text-sm font-medium'>
+                                        <Ruler className='h-4 w-4' /> Land Area (hectares)
+                                    </Label>
+                                    <Input
+                                        id='land_area'
+                                        type='number'
+                                        step='0.1'
+                                        min='0.1'
+                                        value={formData.land_area}
+                                        onChange={(e) => handleChange('land_area', parseFloat(e.target.value))}
+                                        className='rounded-lg'
+                                    />
                                 </div>
 
                                 {/* Yield Estimation Year */}
@@ -190,7 +186,7 @@ export default function AgriFinanceDashboard() {
                                             Processing
                                         </>
                                     ) : (
-                                        'Calculate Financial Score'
+                                        'Calculate Agri Financial Score'
                                     )}
                                 </Button>
                             </CardFooter>
