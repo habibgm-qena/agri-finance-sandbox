@@ -237,7 +237,7 @@ export default function AgriFinanceDashboard() {
                                             fontSize='20'
                                             textAnchor='middle'
                                             fill='currentColor'
-                                            style={{ marginTop: '10px' }}>
+                                            style={{ marginTop: '20px' }}>
                                             {rawScore}
                                         </text>
                                         <text
@@ -282,8 +282,8 @@ export default function AgriFinanceDashboard() {
                 <div className='mt-6'>
                     {success && (
                         <Alert className='border-green-200 bg-green-50'>
-                            <Check className='h-4 w-4 text-green-600' />
-                            <AlertTitle>Success</AlertTitle>
+                            <Check className='h-4 w-4 text-green-600 dark:text-black' />
+                            <AlertTitle className='dark:text-black'>Success</AlertTitle>
                             <AlertDescription>Data submitted successfully and score calculated.</AlertDescription>
                         </Alert>
                     )}
