@@ -229,11 +229,6 @@ export default function AgriFinanceDashboard() {
                                             strokeDasharray={`${score * 1.8} 180`}
                                         />
 
-                                        {/* space */}
-                                        <circle cx='50' cy='70' r='5' fill='white' />
-
-                                        {/* Center circle */}
-
                                         {/* Gauge text */}
                                         <text
                                             x='50'
@@ -241,7 +236,8 @@ export default function AgriFinanceDashboard() {
                                             fontFamily='sans-serif'
                                             fontSize='20'
                                             textAnchor='middle'
-                                            fill='currentColor'>
+                                            fill='currentColor'
+                                            style={{ marginTop: '10px' }}>
                                             {rawScore}
                                         </text>
                                         <text
