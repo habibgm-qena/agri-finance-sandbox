@@ -21,7 +21,10 @@ export default function AgriFinanceDashboard() {
         yield_estimation_year: 2025
     });
 
+    const max_score = 850;
+
     const [score, setScore] = useState(0);
+    const [rawScore, setRawScore] = useState(0);
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
@@ -55,11 +58,14 @@ export default function AgriFinanceDashboard() {
             const data = await response.json();
 
             // Extract score from the response
-            const apiScore = data?.score || Math.floor(Math.random() * 100);
-            setScore(apiScore);
+            const apiScore = data?.agri_score || 0;
+            setRawScore(apiScore);
+            setScore((apiScore / max_score) * 100); // Assuming max_score is defined in the API response
             setSuccess(true);
         } catch (err: any) {
             setError(err.message || 'Failed to submit data. Please try again.');
+            setScore(0);
+            setRawScore(0);
         } finally {
             setLoading(false);
         }
@@ -223,6 +229,11 @@ export default function AgriFinanceDashboard() {
                                             strokeDasharray={`${score * 1.8} 180`}
                                         />
 
+                                        {/* space */}
+                                        <circle cx='50' cy='70' r='5' fill='white' />
+
+                                        {/* Center circle */}
+
                                         {/* Gauge text */}
                                         <text
                                             x='50'
@@ -231,7 +242,7 @@ export default function AgriFinanceDashboard() {
                                             fontSize='20'
                                             textAnchor='middle'
                                             fill='currentColor'>
-                                            {score}
+                                            {rawScore}
                                         </text>
                                         <text
                                             x='50'
